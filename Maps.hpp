@@ -6,6 +6,7 @@
 #include "Game.hpp"
 #include "Rectangle.hpp"
 #include "Circle.hpp"
+#include "Text.hpp"
 
 struct Maps
 {

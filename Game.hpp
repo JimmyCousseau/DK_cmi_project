@@ -2,12 +2,14 @@
 
 #include <list>
 #include <vector>
+#include <map>
 
 #include "Element.hpp"
 #include "Rectangle.hpp"
 #include "Circle.hpp"
 #include "Physics.hpp"
 #include "Player.hpp"
+#include "Text.hpp"
 
 enum GameState
 {
@@ -42,10 +44,11 @@ public:
     int get_windowHeight() const;
     sf::Font get_font() const;
     UserInputs get_user_inputs() const;
+    std::map<char[], sf::Texture> get_textures_map() const;
 
     // Setter
     void set_mario(const Player *mario);
-    void set_text_score(const sf::Text &text);
+    void set_text_score(const Text *text);
 
 private:
     void load_resources();
@@ -64,8 +67,9 @@ private:
 
     //Murs
     sf::Image m_murs[2];
+    std::map<char[], sf::Texture> m_textures;
 
     //Fonts
     sf::Font m_font;
-    sf::Text m_text_score;
+    Text m_text_score;
 };

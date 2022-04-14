@@ -2,8 +2,8 @@
 
 #define PI 3.14159265
 
-Rectangle::Rectangle(float x, float y, int width, int height, float rotation, bool hasGravity, float velocityOnX, float velocityOnY, sf::Color color) : 
-Element(x, y, rotation, hasGravity, velocityOnX, velocityOnY, color), m_width(width), m_height(height)
+Rectangle::Rectangle(float x, float y, int width, int height, float rotation, bool hasGravity, float velocityOnX, float velocityOnY, sf::Color color, sf::Texture texture) : 
+Element(x, y, rotation, hasGravity, velocityOnX, velocityOnY, color), m_width(width), m_height(height), m_texture(texture)
 {
 
 }
@@ -19,6 +19,7 @@ void Rectangle::draw(sf::RenderWindow &window)
     rectangle.setFillColor(m_color);
     rectangle.setPosition(m_x, m_y);
     rectangle.rotate(m_rotation);
+    rectangle.setTexture(&m_texture);
     window.draw(rectangle);
 }
 

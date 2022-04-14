@@ -1,6 +1,6 @@
 #include "Game.hpp"
 
-Game::Game() : m_windowWidth(960), m_windowHeight(540), m_mario(Player(1, 1, 1, 1)),
+Game::Game() : m_windowWidth(960), m_windowHeight(540), m_mario(Player(1, 1, 1, 1)), m_text_score("00000", 0, 0, 15, m_font),
 m_window(sf::VideoMode(m_windowWidth, m_windowHeight), L"Donkey Kong Arcade Incroyable")
 {
   load_resources();
@@ -26,6 +26,10 @@ void Game::load_resources()
     if (!m_murs[1].loadFromFile("resources/images/mur2.jpg"))
     {
       std::cout << "Error, could not load mur2.jpg" << std::endl;
+    }
+    if (!m_textures["mur"].loadFromFile("resources/images/mur1.jpg"))
+    {
+      std::cout << "Error, could not load mur1.jpg" << std::endl;
     }
 }
 
@@ -112,6 +116,8 @@ void Game::render()
     m_backGroundElements[i]->draw(m_window);
   }
 
+  m_text_score.draw(m_window);
+
   m_mario.draw(m_window);
 
   m_window.display();
@@ -128,7 +134,8 @@ int Game::get_windowHeight() const { return m_windowHeight; }
 bool Game::is_open() const { return m_window.isOpen(); }
 sf::Font Game::get_font() const { return m_font; }
 UserInputs Game::get_user_inputs() const { return m_inputs; }
+std::map<char[], sf::Texture> Game::get_textures_map() const { return m_textures; };
 
 // setters
 void Game::set_mario(const Player *mario) { m_mario = *mario;}
-void Game::set_text_score(const sf::Text &text) { m_text_score = text; }
+void Game::set_text_score(const Text *text) { m_text_score = *text; }
