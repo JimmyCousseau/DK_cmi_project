@@ -1,47 +1,34 @@
 #include <iostream>
 
-#include "Math.hpp"
-#include "Circle.hpp"
-#include "Rectangle.hpp"
 #include "Game.hpp"
 #include "Maps.hpp"
 
-#define NB_FPS 60.0
-#define FRAME_DURATION 1/NB_FPS
-
 int main()
 {
-  sf::Clock clock;
-  Game game;
-  Maps::set_map1(game);
+	Game game;
+	Maps::set_map(game, game.get_map_tag());
 
-  /*
-   * GAME LOOP
-   */
-  while (game.is_open()) {
-    
-    /*
-     * event loop
-     */
-      game.handle_events();
+	/*
+	* GAME LOOP
+	*/
+	sf::Clock clock;
+	while (game.is_open())
+	{
+		// set a new map if needed
+		if (game.get_change_map()) { Maps::set_map(game, game.get_map_tag()); }
 
-    /*
-     * update state
-     */
-    float dt = clock.restart().asSeconds();
-    game.update(dt);
+		/*
+		* update state
+		*/
+		float dt = clock.restart().asSeconds();
+		game.update(dt);
 
-    /*
-     * render states
-     */
+		/*
+		* render states
+		*/
 
-    // wait before rendering the frame in order to not compute more than the wanted maximum frames
-    const float sleepDuration(FRAME_DURATION - dt);
-    if (sleepDuration > 0) { sf::sleep(sf::microseconds(sleepDuration)); }
+		game.render();
+	}
 
-    game.render();
-
-  }
-
-  return 0;
+	return 0;
 }
